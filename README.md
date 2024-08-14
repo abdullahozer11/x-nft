@@ -15,7 +15,7 @@ Ensure you have the following installed:
 
     ```bash
     git clone https://github.com/abdullahozer11/x-nft.git
-    cd x-nft-collection
+    cd x-nft
     ```
 
 2. Install the dependencies:
@@ -24,14 +24,7 @@ Ensure you have the following installed:
     yarn install
     ```
 
-3. Create a `.env` file in the root directory of the project and add the following environment variables:
-
-    ```plaintext
-    PRIVATE_KEY=your_private_key
-    NETWORK=your_network_name
-    ```
-
-    Replace `your_private_key`, and `your_network_name` with your actual Infura API key, your wallet's private key, and the network name (e.g., `rinkeby`).
+3. Copy .env.sample to `.env` file in the root directory of the project and add the necessary environment variables:
 
 # Testing
 
@@ -39,4 +32,21 @@ To run tests use:
 
 ```bash
   yarn test
+```
+
+# Running a node
+
+To run a hardhat node:
+
+```bash
+  yarn run node
+```
+
+# Deploying
+
+To deploy to hardhat node:
+
+```bash
+  npx hardhat run scripts/deploy.js
+  npx hardhat run scripts/reserveNFTs.js
 ```

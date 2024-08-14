@@ -23,11 +23,11 @@ module.exports = {
     localhost: {
       url: "http://127.0.0.1:8545",
       chainId: 31337,
-      accounts: [process.env.HARDHAT_PRIVATE_KEY]
+      accounts: [process.env.HARDHAT_PRIVATE_KEY || '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80']
     },
     sepolia: {
       url: "https://sepolia.infura.io/v3/" + process.env.INFURA_API_KEY,
-      accounts: [`${process.env.SEPOLIA_PRIVATE_KEY}`]
+      accounts: [`${process.env.SEPOLIA_PRIVATE_KEY || '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80'}`]
     }
   },
   mocha: {

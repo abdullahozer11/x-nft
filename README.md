@@ -54,6 +54,13 @@ To deploy to hardhat node:
   npx hardhat run scripts/reserveNFTs.js
 ```
 
+After deploying copy the NFTCollection.json from artifacts to the frontend/src/contracts/ directory
+
+```bash
+  cp artifacts/contracts/NFTCollection.sol/NFTCollection.json frontend/src/contracts/
+```
+
+
 ## Screenshots
 Here are some screenshots from the project:
 

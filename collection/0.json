@@ -1,0 +1,19 @@
+{
+  "name": "Rabbit #1",
+  "description": "Meet Rabbit1, the first of our rabbit collection. He's always ready for a debate!",
+  "image": "https://ipfs.io/ipfs/QmYsRRAd8o8dofmywKgurTQumfmJHwmPtgoX6VWWi7sLqk",
+  "attributes": [
+    {
+      "trait_type": "Kindness",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Coolness",
+      "value": "High"
+    },
+    {
+      "trait_type": "Enthusiasm",
+      "value": "Low"
+    }
+  ]
+}

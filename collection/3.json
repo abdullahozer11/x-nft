@@ -1,0 +1,19 @@
+{
+  "name": "Rabbit #4",
+  "description": "Meet Rabbit4, the forth of our rabbit collection. She's always ready for an idea!",
+  "image": "https://ipfs.io/ipfs/QmaA1d3quputmT8erzgKLCWFAuPRz3NvjHmVwH4AkRSL9X",
+  "attributes": [
+    {
+      "trait_type": "Kindness",
+      "value": "Very High"
+    },
+    {
+      "trait_type": "Coolness",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Enthusiasm",
+      "value": "Very High"
+    }
+  ]
+}

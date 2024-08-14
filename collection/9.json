@@ -1,0 +1,19 @@
+{
+  "name": "Rabbit #10",
+  "description": "Meet Rabbit10, the tenth of our rabbit collection. He's always ready for music!",
+  "image": "https://ipfs.io/ipfs/QmNRhd4LnKTf34WRDuvxWEuy6owSZNXoBvpVmJP99xzKgN",
+  "attributes": [
+    {
+      "trait_type": "Kindness",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Coolness",
+      "value": "Very High"
+    },
+    {
+      "trait_type": "Enthusiasm",
+      "value": "Medium"
+    }
+  ]
+}

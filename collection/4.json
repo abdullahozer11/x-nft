@@ -1,0 +1,19 @@
+{
+  "name": "Rabbit #5",
+  "description": "Meet Rabbit5, the fifth of our rabbit collection. She's always ready for a pose!",
+  "image": "https://ipfs.io/ipfs/QmWHe1ohA5WMk1idhu1CDe2nE3FsnFt6A9nLWFLDQEBYhP",
+  "attributes": [
+    {
+      "trait_type": "Kindness",
+      "value": "High"
+    },
+    {
+      "trait_type": "Coolness",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Enthusiasm",
+      "value": "Medium"
+    }
+  ]
+}

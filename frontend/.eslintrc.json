@@ -1,0 +1,70 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "eslint:recommended",
+    "plugin:prettier/recommended"
+  ],
+  "env": {
+    "es6": true,
+    "jest": true
+  },
+  "plugins": [
+    "prettier",
+    "filenames",
+    "jest",
+    "eslint-plugin-simple-import-sort"
+  ],
+  "rules": {
+    "prettier/prettier": "error",
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "padding-line-between-statements": [
+      "error",
+      {
+        "blankLine": "always",
+        "prev": "function",
+        "next": "function"
+      },
+      {
+        "blankLine": "always",
+        "prev": "block-like",
+        "next": "function"
+      }
+    ],
+    "camelcase": [
+      "error",
+      {
+        "properties": "always"
+      }
+    ],
+    "func-names": [
+      "error",
+      "always"
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "*.js",
+        "*.jsx",
+        "*.ts",
+        "*.tsx"
+      ],
+      "rules": {
+        "padding-line-between-statements": [
+          "error",
+          {
+            "blankLine": "always",
+            "prev": "*",
+            "next": "function"
+          },
+          {
+            "blankLine": "always",
+            "prev": "function",
+            "next": "*"
+          }
+        ]
+      }
+    }
+  ]
+}

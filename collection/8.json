@@ -1,0 +1,19 @@
+{
+  "name": "Rabbit #9",
+  "description": "Meet Rabbit9, the ninth of our rabbit collection. He's always ready for magic!",
+  "image": "https://ipfs.io/ipfs/QmSAJS5r6L5LK1v34AoUZ3JNBeo7KdPESrcVbsXRVnK6Mp",
+  "attributes": [
+    {
+      "trait_type": "Kindness",
+      "value": "High"
+    },
+    {
+      "trait_type": "Coolness",
+      "value": "High"
+    },
+    {
+      "trait_type": "Enthusiasm",
+      "value": "High"
+    }
+  ]
+}

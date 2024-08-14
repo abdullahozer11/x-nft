@@ -1,0 +1,19 @@
+{
+  "name": "Rabbit #2",
+  "description": "Meet Rabbit2, the second of our rabbit collection. He's always ready for a show!",
+  "image": "https://ipfs.io/ipfs/QmPjFSECYxtB8hxWFZkNmw54GszZvuwWzYZ49rasJ7knPv",
+  "attributes": [
+    {
+      "trait_type": "Kindness",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Coolness",
+      "value": "Very High"
+    },
+    {
+      "trait_type": "Enthusiasm",
+      "value": "Medium"
+    }
+  ]
+}

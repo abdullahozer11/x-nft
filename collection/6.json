@@ -1,0 +1,19 @@
+{
+  "name": "Rabbit #7",
+  "description": "Meet Rabbit7, the seventh of our rabbit collection. He's always ready for a presentation!",
+  "image": "https://ipfs.io/ipfs/QmTS2eK63q5BnP8oyFaR52ZvgySfiFVyPKQS9JJ2K5euvc",
+  "attributes": [
+    {
+      "trait_type": "Kindness",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Coolness",
+      "value": "High"
+    },
+    {
+      "trait_type": "Enthusiasm",
+      "value": "Very High"
+    }
+  ]
+}

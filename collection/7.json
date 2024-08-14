@@ -1,0 +1,19 @@
+{
+  "name": "Rabbit #8",
+  "description": "Meet Rabbit8, the eighth of our rabbit collection. She's always ready for colors!",
+  "image": "https://ipfs.io/ipfs/QmaZbF6sEDosM97WraESmbazHVG3MWipxp3iM5fprKdfvR",
+  "attributes": [
+    {
+      "trait_type": "Kindness",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Coolness",
+      "value": "Very High"
+    },
+    {
+      "trait_type": "Enthusiasm",
+      "value": "High"
+    }
+  ]
+}

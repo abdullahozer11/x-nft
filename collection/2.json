@@ -1,0 +1,19 @@
+{
+  "name": "Rabbit #3",
+  "description": "Meet Rabbit3, the third of our rabbit collection. He's always ready for an adventure!",
+  "image": "https://ipfs.io/ipfs/QmUE1w7jCqhHPasAGiXEbiCVRP5qbYgVJasgR4JCG7RxjW",
+  "attributes": [
+    {
+      "trait_type": "Kindness",
+      "value": "Very High"
+    },
+    {
+      "trait_type": "Coolness",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Enthusiasm",
+      "value": "Very High"
+    }
+  ]
+}

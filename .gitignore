@@ -1,0 +1,7 @@
+.idea
+node_modules
+todo.txt
+artifacts
+.env
+cache
+/ignition/deployments/

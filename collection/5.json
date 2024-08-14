@@ -1,0 +1,19 @@
+{
+  "name": "Rabbit #6",
+  "description": "Meet Rabbit6, the sixth of our rabbit collection. He's always ready for a party!",
+  "image": "https://ipfs.io/ipfs/QmT5dbRLwNeEFuqA1maPRQdCvZK8mpVHfFeFrZsTdZVwUN",
+  "attributes": [
+    {
+      "trait_type": "Kindness",
+      "value": "High"
+    },
+    {
+      "trait_type": "Coolness",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Enthusiasm",
+      "value": "Very High"
+    }
+  ]
+}

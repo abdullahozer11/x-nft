@@ -50,3 +50,10 @@ To deploy to hardhat node:
   npx hardhat run scripts/deploy.js
   npx hardhat run scripts/reserveNFTs.js
 ```
+
+## Screenshots
+Here are some screenshots from the project:
+
+![Screenshot 1](screenshots/scr1.png)
+![Screenshot 2](screenshots/scr2.png)
+![Screenshot 3](screenshots/scr3.png)

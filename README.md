@@ -3,7 +3,7 @@
 This project is an NFT collection by Abdullah Ozer. It uses Hardhat for deployment and `dotenv` for managing environment variables.
 
 See the frontend connecting to the contract here:
-https://xnft-acduae0fi-abdullah-ozers-projects.vercel.app/
+https://xnft-iota.vercel.app/
 
 ## Prerequisites
 

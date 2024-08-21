@@ -5,3 +5,4 @@ artifacts
 .env
 cache
 /ignition/deployments/
+.vercel

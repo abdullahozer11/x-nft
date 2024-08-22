@@ -40,7 +40,7 @@ const NFTCard = ({
 
   return (
     <div className="flex flex-col flex-1 min-w-[130px] max-w-[300px] gap-7">
-      <CustomLink href={`/nfts/${nft.tokenId ?? nft.id}`}>
+      <CustomLink href={`/nfts/${nft.tokenId ?? nft.id}`} disabled={!contract}>
         <img
           className="flex-1 w-full object-cover hover:shadow-xl hover:shadow-white hover:scale-110 transition-transform"
           src={nft.image}

@@ -3,6 +3,7 @@ import { ethers } from "ethers";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 import NFTCollection from "@/contracts/NFTCollection.json";
+import { useUpsertProfile } from "supa_api/profiles";
 
 const WalletContext = createContext();
 
@@ -11,6 +12,8 @@ export const WalletProvider = ({ children }) => {
   const [contract, setContract] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const {mutate: upsertProfile} = useUpsertProfile();
 
   const getContractAddress = async (chainId) => {
     switch (Number(chainId)) {

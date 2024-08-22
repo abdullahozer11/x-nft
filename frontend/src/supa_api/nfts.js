@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { supabase } from "@/lib/supabaseClient";
 
-export const useNFTs = () => {
+export const useSupaNFTs = () => {
   return useQuery({
     queryKey: ["nfts"],
     queryFn: async () => {
@@ -17,7 +17,7 @@ export const useNFTs = () => {
   });
 };
 
-export const useInsertNFT = () => {
+export const useSupaInsertNFT = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -34,7 +34,7 @@ export const useInsertNFT = () => {
   });
 };
 
-export const useDeleteNFT = () => {
+export const useSupaDeleteNFT = () => {
   const queryClient = useQueryClient();
 
   return useMutation({

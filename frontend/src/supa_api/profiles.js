@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { supabase } from "@/lib/supabaseClient";
 
-export const useUpsertProfile = () => {
+export const useSupaUpsertProfile = () => {
   const queryClient = useQueryClient();
 
   return useMutation({

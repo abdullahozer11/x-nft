@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { supabase } from "@/lib/supabaseClient";
 
-export const useFavorites = (address) => {
+export const useSupaFavorites = (address) => {
   return useQuery({
     queryKey: ["favorites", address],
     queryFn: async () => {
@@ -20,7 +20,7 @@ export const useFavorites = (address) => {
   });
 };
 
-export const useInsertFavorite = () => {
+export const useSupaInsertFavorite = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -37,7 +37,7 @@ export const useInsertFavorite = () => {
   });
 };
 
-export const useDeleteFavorite = () => {
+export const useSupaDeleteFavorite = () => {
   const queryClient = useQueryClient();
 
   return useMutation({

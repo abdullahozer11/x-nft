@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { supabase } from "@/lib/supabaseClient";
 
-export const useListings = () => {
+export const useSupaListings = () => {
   return useQuery({
     queryKey: ["listings"],
     queryFn: async () => {
@@ -17,7 +17,7 @@ export const useListings = () => {
   });
 };
 
-export const useProfileListings = (address, isActive) => {
+export const useSupaProfileListings = (address, isActive) => {
   return useQuery({
     queryKey: ["profileListings", address, isActive],
     queryFn: async () => {
@@ -36,7 +36,7 @@ export const useProfileListings = (address, isActive) => {
   });
 };
 
-export const useInsertListing = () => {
+export const useSupaInsertListing = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -53,7 +53,7 @@ export const useInsertListing = () => {
   });
 };
 
-export const useDeleteListing = () => {
+export const useSupaDeleteListing = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -73,7 +73,7 @@ export const useDeleteListing = () => {
   });
 };
 
-export const useUpdateListing = () => {
+export const useSupaUpdateListing = () => {
   const queryClient = useQueryClient();
 
   return useMutation({

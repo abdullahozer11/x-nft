@@ -13,7 +13,7 @@ export const WalletProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const {mutate: upsertProfile} = useSupaUpsertProfile();
+  const { mutate: upsertProfile } = useSupaUpsertProfile();
 
   const getContractAddress = async (chainId) => {
     switch (Number(chainId)) {
@@ -40,7 +40,7 @@ export const WalletProvider = ({ children }) => {
       const signer = await provider.getSigner();
       const userAddress = await signer.getAddress();
       upsertProfile({
-        wallet_address: userAddress,
+        walletAddress: userAddress,
       });
 
       // Fetch current chain ID
@@ -80,7 +80,7 @@ export const WalletProvider = ({ children }) => {
         const newAccount = accounts[0];
         setAccount(newAccount);
         upsertProfile({
-          wallet_address: newAccount,
+          walletAddress: newAccount,
         });
 
         try {

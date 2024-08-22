@@ -8,7 +8,6 @@
     "es6": true,
     "jest": true
   },
-  "presets": ["next/babel"],
   "plugins": [
     "prettier",
     "filenames",

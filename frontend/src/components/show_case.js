@@ -46,7 +46,10 @@ const ShowCase = () => {
       return [];
     }
     if (!listings || !ownings) {
-      return nfts;
+      return nfts.map((nft, id) => ({
+        ...nft,
+        id,
+      }));
     }
     const combined = Object.entries(mergeDicts(nfts, listings)).map(
       ([tokenId, nftAttributes]) => ({
@@ -140,7 +143,7 @@ const ShowCase = () => {
       <div className="grid gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-5">
         {combinedNFTs?.map((nft) => (
           <NFTCard
-            key={nft.tokenId ?? nft.name}
+            key={nft.tokenId ?? nft.id}
             nft={nft}
             onPurchase={handlePurchase}
             onList={handleList}

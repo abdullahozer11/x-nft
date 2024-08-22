@@ -3,7 +3,7 @@ import { ethers } from "ethers";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 import NFTCollection from "@/contracts/NFTCollection.json";
-import { useUpsertProfile } from "supa_api/profiles";
+import { useSupaUpsertProfile } from "@/supa_api/profiles";
 
 const WalletContext = createContext();
 
@@ -13,7 +13,7 @@ export const WalletProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const {mutate: upsertProfile} = useUpsertProfile();
+  const {mutate: upsertProfile} = useSupaUpsertProfile();
 
   const getContractAddress = async (chainId) => {
     switch (Number(chainId)) {
@@ -39,6 +39,9 @@ export const WalletProvider = ({ children }) => {
       await window.ethereum.request({ method: "eth_requestAccounts" });
       const signer = await provider.getSigner();
       const userAddress = await signer.getAddress();
+      upsertProfile({
+        wallet_address: userAddress,
+      });
 
       // Fetch current chain ID
       const network = await provider.getNetwork();
@@ -76,6 +79,9 @@ export const WalletProvider = ({ children }) => {
       if (accounts.length > 0) {
         const newAccount = accounts[0];
         setAccount(newAccount);
+        upsertProfile({
+          wallet_address: newAccount,
+        });
 
         try {
           const provider = new ethers.BrowserProvider(window.ethereum);

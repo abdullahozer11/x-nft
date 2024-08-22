@@ -31,7 +31,7 @@ export default function NftDetailPage() {
     error: owningsError,
   } = useOwnings(contract, account);
   const {
-    data: totalSupply,
+    data: totalSupply = 10,
     isLoading: totalSupplyLoading,
     error: totalSupplyError,
   } = useTotalSupply(contract);

@@ -6,9 +6,11 @@ export const useSupaUpsertProfile = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (newProfile) => {
-      const { error } = await supabase.from("profiles").upsert(newProfile, {
-        onConflict: ["wallet_address"],
+    mutationFn: async (newAddress) => {
+      const { error } = await supabase
+        .from("profiles")
+        .upsert({walletAddress: newAddress}, {
+        onConflict: ["walletAddress"],
       });
       if (error) {
         console.log("useInsertProfile error: ", error.message);

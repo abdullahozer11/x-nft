@@ -7,11 +7,12 @@ export const useSupaUpsertProfile = () => {
 
   return useMutation({
     mutationFn: async (newAddress) => {
-      const { error } = await supabase
-        .from("profiles")
-        .upsert({walletAddress: newAddress}, {
-        onConflict: ["walletAddress"],
-      });
+      const { error } = await supabase.from("profiles").upsert(
+        { walletAddress: newAddress },
+        {
+          onConflict: ["walletAddress"],
+        },
+      );
       if (error) {
         console.log("useInsertProfile error: ", error.message);
         throw new Error(error.message);

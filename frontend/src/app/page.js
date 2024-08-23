@@ -12,6 +12,7 @@ export default function Home() {
         <Link href="/about">
           <button className="hover:scale-110">ABOUT</button>
         </Link>
+        <p>Sepolia Testnet</p>
         <ConnectWalletButton />
       </div>
       {/*hero*/}

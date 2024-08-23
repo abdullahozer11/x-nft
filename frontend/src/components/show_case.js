@@ -2,7 +2,6 @@
 import { ethers } from "ethers";
 
 import NFTCard from "@/components/nft_card";
-import { useWallet } from "@/context/WalletContext";
 import { useBuyNFT } from "@/hooks/useBuyNFT";
 import useFetchNFTData from "@/hooks/useFetchNFTData";
 import { useListNFT } from "@/hooks/useListNFT";
@@ -10,7 +9,6 @@ import { useRemoveListing } from "@/hooks/useRemoveListing";
 
 const ShowCase = () => {
   const { combinedNFTs, loading, error } = useFetchNFTData();
-  const { contract } = useWallet();
   const { mutate: buyNFT, isLoading: buyLoading } = useBuyNFT();
   const { mutate: listNFT, isLoading: listLoading } = useListNFT();
   const { mutate: unlistNFT, isLoading: unlistLoading } = useRemoveListing();

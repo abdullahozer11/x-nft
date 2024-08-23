@@ -10,7 +10,6 @@ const WalletContext = createContext();
 export const WalletProvider = ({ children }) => {
   const [account, setAccount] = useState(null);
   const [contract, setContract] = useState(null);
-  const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const { mutate: upsertProfile } = useSupaUpsertProfile();
@@ -74,8 +73,7 @@ export const WalletProvider = ({ children }) => {
       setContract(contractInstance);
     } catch (err) {
       const msg = "Something went wrong.";
-      console.log(msg, err);
-      setError(msg);
+      console.error(msg, err);
     } finally {
       setIsLoading(false);
     }
@@ -127,7 +125,6 @@ export const WalletProvider = ({ children }) => {
             "Failed to reinitialize contract with new account",
             err,
           );
-          setError("Failed to reinitialize contract with new account.");
         }
       } else {
         setAccount(null);
@@ -136,7 +133,20 @@ export const WalletProvider = ({ children }) => {
     };
 
     const handleChainChanged = async () => {
-      checkIfWalletIsConnected();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const network = await provider.getNetwork();
+      if (
+        parseInt(process.env.NEXT_PUBLIC_SEPOLIA_CHAIN_ID, 16) !==
+          network.chainId ||
+        parseInt(process.env.NEXT_PUBLIC_HARDHAT_CHAIN_ID, 16) !==
+          network.chainId
+      ) {
+        setAccount(null);
+        setContract(null);
+        console.log("Network changed, resetting wallet context");
+      } else {
+        checkIfWalletIsConnected();
+      }
     };
 
     if (window.ethereum) {
@@ -156,18 +166,11 @@ export const WalletProvider = ({ children }) => {
     };
   }, []);
 
-  useEffect(() => {
-    if (account) {
-      setError(null);
-    }
-  }, [account]);
-
   return (
     <WalletContext.Provider
       value={{
         account,
         contract,
-        error,
         isLoading,
         connectWallet: checkIfWalletIsConnected,
       }}

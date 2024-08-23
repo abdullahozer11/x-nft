@@ -37,9 +37,7 @@ const FavoriteButton = ({ nft }) => {
         fill={nft.isFaved ? "currentColor" : "none"}
         stroke="red"
         strokeWidth="2"
-        className={
-          "w-10 h-10 transform transition-transform hover:scale-110"
-        }
+        className={"w-10 h-10 transform transition-transform hover:scale-110"}
       />
     </button>
   );

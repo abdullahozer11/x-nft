@@ -6,11 +6,11 @@ export const useSupaUpsertProfile = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (newAddress) => {
+    mutationFn: async ({ walletAddress, contractAddress }) => {
       const { error } = await supabase.from("profiles").upsert(
-        { walletAddress: newAddress },
+        { walletAddress, contractAddress },
         {
-          onConflict: ["walletAddress"],
+          onConflict: ["walletAddress", "contractAddress"],
         },
       );
       if (error) {

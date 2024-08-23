@@ -2,82 +2,29 @@
 import { ethers } from "ethers";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import React, { useMemo } from "react";
 import { useState } from "react";
 
 import ConnectWalletButton from "@/components/connect_wallet_button";
+import FavoriteButton from "@/components/FavoriteButton";
 import { useWallet } from "@/context/WalletContext";
 import { useBuyNFT } from "@/hooks/useBuyNFT";
-import useListings from "@/hooks/useListings";
+import useFetchNFTData from "@/hooks/useFetchNFTData";
 import { useListNFT } from "@/hooks/useListNFT";
-import { useNFTData } from "@/hooks/useNFTData";
-import { useOwnings } from "@/hooks/useOwnings";
 import { useRemoveListing } from "@/hooks/useRemoveListing";
-import { useTotalSupply } from "@/hooks/useTotalSupply";
-import { mergeDicts } from "@/utils/mergeDicts";
 
 export default function NftDetailPage() {
   const { nftTokenId } = useParams();
-
-  const {
-    contract,
-    account,
-    error: walletError,
-    isLoading: walletLoading,
-  } = useWallet();
-  const {
-    data: ownings,
-    isLoading: owningsLoading,
-    error: owningsError,
-  } = useOwnings(contract, account);
-  const {
-    data: totalSupply = 10,
-    isLoading: totalSupplyLoading,
-    error: totalSupplyError,
-  } = useTotalSupply(contract);
-  const {
-    data: listings,
-    isLoading: listingsLoading,
-    error: listingsError,
-  } = useListings(contract, totalSupply);
-  const {
-    data: nfts,
-    error: nftsError,
-    isLoading: nftsLoading,
-  } = useNFTData(totalSupply);
-
+  const [price, setPrice] = useState("");
+  const { contract } = useWallet();
+  const { combinedNFTs: nfts, loading, error } = useFetchNFTData();
   const { mutate: buyNFT, isLoading: buyLoading } = useBuyNFT(contract);
   const { mutate: listNFT, isLoading: listLoading } = useListNFT(contract);
   const { mutate: unlistNFT, isLoading: unlistLoading } =
     useRemoveListing(contract);
 
-  const [price, setPrice] = useState("");
+  const nft = nfts[nftTokenId];
 
-  const nft = useMemo(() => {
-    if (!nfts || !listings || !ownings) {
-      return null;
-    }
-    const combined = Object.entries(mergeDicts(nfts, listings)).map(
-      ([tokenId, nftAttributes]) => ({
-        tokenId,
-        ...nftAttributes,
-      }),
-    );
-
-    combined.forEach((nft) => {
-      nft.isOwned = ownings.includes(nft.tokenId);
-    });
-
-    return combined.find((item) => item.tokenId === nftTokenId) || null;
-  }, [nfts, listings, ownings, nftTokenId]);
-
-  if (
-    nftsLoading ||
-    listingsLoading ||
-    walletLoading ||
-    owningsLoading ||
-    totalSupplyLoading
-  ) {
+  if (loading) {
     return (
       <div className="flex justify-center items-center">
         <h2>Loading NFTs...</h2>
@@ -85,22 +32,10 @@ export default function NftDetailPage() {
     );
   }
 
-  if (
-    nftsError ||
-    listingsError ||
-    walletError ||
-    owningsError ||
-    totalSupplyError
-  ) {
+  if (error) {
     return (
       <div className="flex justify-center items-center">
-        <h2 className="text-red-500">
-          {nftsError ||
-            listingsError ||
-            walletError ||
-            owningsError ||
-            totalSupplyError}
-        </h2>
+        <h2 className="text-red-500">{error}</h2>
       </div>
     );
   }
@@ -110,15 +45,10 @@ export default function NftDetailPage() {
       console.error("NFT tokenId is required to purchase");
       return;
     }
-    try {
-      await buyNFT({
-        tokenId: nft.tokenId,
-        priceInWei: nft.price,
-      });
-      // console.log("NFT purchase request sent successfully");
-    } catch (err) {
-      console.error("Error purchasing NFT:", err);
-    }
+    await buyNFT({
+      tokenId: nft.tokenId,
+      priceInWei: nft.price,
+    });
   };
 
   const handleUnlist = async (nft) => {
@@ -126,13 +56,7 @@ export default function NftDetailPage() {
       console.error("NFT tokenId is required to unlist");
       return;
     }
-
-    try {
-      await unlistNFT({ tokenId: nft.tokenId });
-      // console.log("NFT unlist request sent successfully");
-    } catch (err) {
-      console.error("Error unlisting NFT:", err);
-    }
+    await unlistNFT({ tokenId: nft.tokenId });
   };
 
   const handleList = async (nft, price) => {
@@ -151,13 +75,8 @@ export default function NftDetailPage() {
       return;
     }
 
-    try {
-      const priceInWei = ethers.parseUnits(price.toString(), "ether");
-      await listNFT({ tokenId: nft.tokenId, priceInWei });
-      // console.log("NFT list request sent successfully");
-    } catch (err) {
-      console.error("Error listing NFT:", err);
-    }
+    const priceInWei = ethers.parseUnits(price.toString(), "ether");
+    await listNFT({ tokenId: nft.tokenId, priceInWei });
   };
 
   const handleAction = async () => {
@@ -205,11 +124,14 @@ export default function NftDetailPage() {
           {nft ? (
             <div className="flex flex-col lg:flex-row items-center justify-center bg-gray-800 p-3 sm:p-5 rounded-lg shadow-lg w-full lg:w-1/2">
               <div className="flex-shrink-0 mb-4 lg:mb-0 lg:mr-5">
-                <img
-                  src={nft.image}
-                  alt={nft.name}
-                  className="rounded-md max-h-48 sm:max-h-64 lg:max-h-96"
-                />
+                <div className="relative">
+                  <img
+                    src={nft.image}
+                    alt={nft.name}
+                    className="rounded-md max-h-48 sm:max-h-64 lg:max-h-96"
+                  />
+                  {contract && <FavoriteButton nft={nft} />}
+                </div>
               </div>
               <div className="flex flex-col justify-between text-center lg:text-left">
                 <p className="text-sm sm:text-md md:text-lg lg:text-xl mt-2">
@@ -262,9 +184,9 @@ export default function NftDetailPage() {
                     />
                   </div>
                 )}
-                {!nft.isOwned && !nft.isActive ? (
+                {contract && !nft.isOwned && !nft.isActive ? (
                   <p> Not for sale </p>
-                ) : (
+                ) : contract ? (
                   <button
                     className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                     onClick={handleAction}
@@ -276,7 +198,7 @@ export default function NftDetailPage() {
                   >
                     {renderButtonLabel()}
                   </button>
-                )}
+                ) : null}
               </div>
             </div>
           ) : (

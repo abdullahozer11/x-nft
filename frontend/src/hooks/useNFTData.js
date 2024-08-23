@@ -14,7 +14,7 @@ const fetchMetadata = async (tokenId) => {
   return response.json();
 };
 
-export const useNFTData = (totalSupply) => {
+const useNFTData = (totalSupply) => {
   const tokenIds = totalSupply
     ? Array.from({ length: totalSupply }, (_, index) => index)
     : [];
@@ -34,3 +34,5 @@ export const useNFTData = (totalSupply) => {
     enabled: totalSupply > 0,
   });
 };
+
+export default useNFTData;

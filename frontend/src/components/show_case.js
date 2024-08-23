@@ -1,72 +1,21 @@
 "use client";
 import { ethers } from "ethers";
-import React, { useMemo } from "react";
 
 import NFTCard from "@/components/nft_card";
 import { useWallet } from "@/context/WalletContext";
 import { useBuyNFT } from "@/hooks/useBuyNFT";
-import useListings from "@/hooks/useListings";
+import useFetchNFTData from "@/hooks/useFetchNFTData";
 import { useListNFT } from "@/hooks/useListNFT";
-import { useNFTData } from "@/hooks/useNFTData";
-import { useOwnings } from "@/hooks/useOwnings";
 import { useRemoveListing } from "@/hooks/useRemoveListing";
-import { useTotalSupply } from "@/hooks/useTotalSupply";
-import { mergeDicts } from "@/utils/mergeDicts";
 
 const ShowCase = () => {
-  const { contract, account } = useWallet();
-  const {
-    data: ownings,
-    isLoading: owningsLoading,
-    error: owningsError,
-  } = useOwnings(contract, account);
-  const {
-    data: totalSupply = 10,
-    isLoading: totalSupplyLoading,
-    error: totalSupplyError,
-  } = useTotalSupply(contract);
-  const {
-    data: listings,
-    isLoading: listingsLoading,
-    error: listingsError,
-  } = useListings(contract, totalSupply);
-  const {
-    data: nfts,
-    error: nftsError,
-    isLoading: nftsLoading,
-  } = useNFTData(totalSupply);
+  const { combinedNFTs, loading, error } = useFetchNFTData();
+  const { contract } = useWallet();
+  const { mutate: buyNFT, isLoading: buyLoading } = useBuyNFT();
+  const { mutate: listNFT, isLoading: listLoading } = useListNFT();
+  const { mutate: unlistNFT, isLoading: unlistLoading } = useRemoveListing();
 
-  const { mutate: buyNFT, isLoading: buyLoading } = useBuyNFT(contract);
-  const { mutate: listNFT, isLoading: listLoading } = useListNFT(contract);
-  const { mutate: unlistNFT, isLoading: unlistLoading } =
-    useRemoveListing(contract);
-
-  const combinedNFTs = useMemo(() => {
-    if (!nfts) {
-      return [];
-    }
-    if (!listings || !ownings) {
-      return nfts.map((nft, id) => ({
-        ...nft,
-        id,
-      }));
-    }
-    const combined = Object.entries(mergeDicts(nfts, listings)).map(
-      ([tokenId, nftAttributes]) => ({
-        tokenId,
-        ...nftAttributes,
-      }),
-    );
-
-    // Add 'isOwned' attribute based on ownings list
-    combined.forEach((nft) => {
-      nft.isOwned = ownings.includes(nft.tokenId);
-    });
-
-    return combined;
-  }, [nfts, listings, ownings]);
-
-  if (nftsLoading || listingsLoading || owningsLoading || totalSupplyLoading) {
+  if (loading) {
     return (
       <div className="flex justify-center items-center">
         <h2>Loading NFTs...</h2>
@@ -74,10 +23,10 @@ const ShowCase = () => {
     );
   }
 
-  if (nftsError || listingsError || owningsError || totalSupplyError) {
+  if (error) {
     return (
       <div className="flex justify-center items-center">
-        <h2 className={"text-red-500"}>{nftsError || listingsError}</h2>
+        <h2 className={"text-red-500"}>{error.message}</h2>
       </div>
     );
   }

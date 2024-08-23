@@ -3,8 +3,8 @@ import { ethers } from "ethers";
 import React, { useState } from "react";
 
 import { CustomLink } from "@/components/custom_link";
+import FavoriteButton from "@/components/FavoriteButton";
 import { useWallet } from "@/context/WalletContext";
-import { useSupaInsertFavorite } from "@/supa_api/favorites";
 
 const NFTCard = ({
   nft,
@@ -15,9 +15,8 @@ const NFTCard = ({
   buyLoading,
   unlistLoading,
 }) => {
-  const {mutate: insertFavorite} = useSupaInsertFavorite();
   const [price, setPrice] = useState("");
-  const { account, contract } = useWallet();
+  const { contract } = useWallet();
 
   const handleList = () => {
     onList(nft, price);
@@ -42,36 +41,18 @@ const NFTCard = ({
 
   return (
     <div className="flex flex-col flex-1 min-w-[130px] max-w-[300px] gap-7">
-      <CustomLink href={`/nfts/${nft.tokenId ?? nft.id}`} disabled={!contract}>
+      <CustomLink
+        href={{
+          pathname: `/nfts/${nft.tokenId ?? nft.id}`,
+        }}
+      >
         <div className="relative">
           <img
             className="flex-1 w-full object-cover hover:shadow-xl hover:shadow-white hover:scale-110 transition-transform"
             src={nft.image}
             alt={nft.name}
           />
-          <button
-            className="absolute top-2 right-2 text-5xl text-red-500 hover:text-red-600 transition-colors"
-            onClick={(e) => {
-              e.preventDefault();
-              window.account = account;
-              insertFavorite(
-                {
-                  walletAddress: contract,
-                  tokenId: nft.tokenId,
-                },
-                {
-                  onSuccess: () => {
-                    console.log("Favorite inserted successfully");
-                  },
-                  onError: (error) => {
-                    console.error("Error inserting favorite:", error);
-                  },
-                },
-              );
-            }}
-          >
-            ♥
-          </button>
+          {contract && <FavoriteButton nft={nft} />}
         </div>
       </CustomLink>
       <div className="flex flex-row flex-1 items-center justify-between gap-1">

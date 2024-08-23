@@ -39,20 +39,10 @@ export const WalletProvider = ({ children }) => {
       await window.ethereum.request({ method: "eth_requestAccounts" });
       const signer = await provider.getSigner();
       const userAddress = await signer.getAddress();
-      upsertProfile(userAddress, {
-        onSuccess: async () => {
-          console.log("Successfully upserted profile");
-        },
-        onError: (error) => {
-          console.error("Server error:", error);
-          Alert.alert("Error", "Server error.");
-        },
-      });
 
       // Fetch current chain ID
       const network = await provider.getNetwork();
       const chainId = network.chainId;
-      window.chainId = chainId;
 
       // Get the correct contract address for the current chain ID
       const contractAddress = await getContractAddress(chainId);
@@ -60,6 +50,19 @@ export const WalletProvider = ({ children }) => {
       if (!contractAddress) {
         throw new Error("Unsupported network");
       }
+
+      upsertProfile(
+        { walletAddress: userAddress, contractAddress },
+        {
+          onSuccess: async () => {
+            console.log("Successfully upserted profile");
+          },
+          onError: (error) => {
+            console.error("Server error:", error);
+            Alert.alert("Error", "Server error.");
+          },
+        },
+      );
 
       const contractInstance = new ethers.Contract(
         contractAddress,
@@ -85,15 +88,21 @@ export const WalletProvider = ({ children }) => {
       if (accounts.length > 0) {
         const newAccount = accounts[0];
         setAccount(newAccount);
-        upsertProfile(newAccount, {
-          onSuccess: async () => {
-            console.log("Successfully upserted profile");
+        upsertProfile(
+          {
+            walletAddress: newAccount,
+            contractAddress: contract?.target,
           },
-          onError: (error) => {
-            console.error("Server error:", error);
-            Alert.alert("Error", "Server error.");
+          {
+            onSuccess: async () => {
+              console.log("Successfully upserted profile");
+            },
+            onError: (error) => {
+              console.error("Server error:", error);
+              Alert.alert("Error", "Server error.");
+            },
           },
-        });
+        );
 
         try {
           const provider = new ethers.BrowserProvider(window.ethereum);

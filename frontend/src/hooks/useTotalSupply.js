@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-export const useTotalSupply = (contract) => {
+const useTotalSupply = (contract) => {
   return useQuery({
     queryKey: ["totalSupply"],
     queryFn: async () => {
@@ -15,3 +15,5 @@ export const useTotalSupply = (contract) => {
     enabled: !!contract,
   });
 };
+
+export default useTotalSupply;

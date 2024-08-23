@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
-export const useRemoveListing = (contract) => {
+export const useRemoveListing = () => {
   const queryClient = useQueryClient();
   const [loadingStates, setLoadingStates] = useState({});
 
@@ -13,7 +13,7 @@ export const useRemoveListing = (contract) => {
   };
 
   const mutation = useMutation({
-    mutationFn: async ({ tokenId }) => {
+    mutationFn: async ({ tokenId, contract }) => {
       if (!contract) {
         throw new Error("Contract is not provided or not initialized");
       }

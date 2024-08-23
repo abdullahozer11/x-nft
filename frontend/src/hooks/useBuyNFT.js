@@ -1,7 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
+import { useWallet } from "@/context/WalletContext";
+
 export const useBuyNFT = (contract) => {
+  const { ctxContract: ctxContract } = useWallet();
+  if (!contract) {
+    contract = ctxContract;
+  }
+
   const queryClient = useQueryClient();
   const [loadingStates, setLoadingStates] = useState({});
 

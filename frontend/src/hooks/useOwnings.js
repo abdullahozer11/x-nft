@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-export const useOwnings = (contract, owner) => {
+const useOwnings = (contract, owner) => {
   return useQuery({
     queryKey: ["ownings", owner],
     queryFn: async () => {
@@ -20,3 +20,5 @@ export const useOwnings = (contract, owner) => {
     enabled: !!contract,
   });
 };
+
+export default useOwnings;

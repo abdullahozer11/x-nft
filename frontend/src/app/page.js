@@ -12,7 +12,7 @@ export default function Home() {
         <Link href="/about">
           <button className="hover:scale-110">ABOUT</button>
         </Link>
-        <p>Sepolia Testnet</p>
+        <p className={"select-none"}>Sepolia Testnet</p>
         <ConnectWalletButton />
       </div>
       {/*hero*/}
@@ -22,12 +22,12 @@ export default function Home() {
             "text-3xl md:text-5xl lg:text-7xl font-bold font-sans select-none"
           }
         >
-          My Kickass NFT COLLECTION
+          X-NFT COLLECTION
         </text>
         <text
           className={"text-2xl md:text-3xl lg:text-4xl font-normal select-none"}
         >
-          Trade Apojean nfts
+          Trade apojean.eth NFTs
         </text>
       </div>
       {/*content*/}
